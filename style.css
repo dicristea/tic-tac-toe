@@ -1,0 +1,57 @@
+:root {
+    --dark-accent: #502581;
+    --body-color: rgb(244, 240, 245);
+    --main-color: rgb(34, 142, 204);
+    --card-color: white;
+    --accent: rgb(221, 182, 233);
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 500;
+    font-size: 100%;
+    text-align: center;
+    min-height: 100vh;
+}
+
+#container {
+    background-color: var(--body-color);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 0.5fr 4rem 4fr;
+}
+
+button {
+    background-color: white;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+button, fieldset, input {
+    font-family: inherit;
+    font-size: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+}
+
+/* HEADER */
+
+/* BODY */
+
+/* FOOTER */
+
+footer {
+    background-color: var(--body-color);
+    color: var(--dark-accent);
+    padding: 10px 0;
+}
