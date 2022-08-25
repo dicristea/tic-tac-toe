@@ -9,13 +9,37 @@
     <script src="main.js" defer></script>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
     </style>
 </head>
 <body>
-<div class="container">
-    
-    <footer>ddtea ⚜ 2022</footer>
+<div id="container">
+    <div class="header">
+        <h1>Tic-Tac-Toe</h1>
+    </div>
+
+    <div class="main-container">
+        <h2 id="message">Player X's turn!</h2>
+        <div class="game-container">
+            <div class="game-field">
+                <!-- emmet: div.box[data-index=$]*9 -->
+                <div class="box" data-index="0"></div>
+                <div class="box" data-index="1"></div>
+                <div class="box" data-index="2"></div>
+                <div class="box" data-index="3"></div>
+                <div class="box" data-index="4"></div>
+                <div class="box" data-index="5"></div>
+                <div class="box" data-index="6"></div>
+                <div class="box" data-index="7"></div>
+                <div class="box" data-index="8"></div>
+            </div>
+        </div>
+        <div class="button-field">
+            <button id="restart">Restart</button>
+        </div>
+    </div>
+
+    <footer><a href="https://github.com/dicristea/">ddtea</a> ⚜ 2022</footer>
 </div>
 </body>
 </html>

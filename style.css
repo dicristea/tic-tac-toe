@@ -1,9 +1,9 @@
 :root {
-    --dark-accent: #502581;
-    --body-color: rgb(244, 240, 245);
-    --main-color: rgb(34, 142, 204);
+    --dark-accent: #072473;
+    --body-color: rgb(223, 229, 255);
     --card-color: white;
-    --accent: rgb(221, 182, 233);
+    --accent: rgb(23, 82, 244);
+    --box-shadow: rgba(128, 128, 128, 0.228);
   }
 
 * {
@@ -14,7 +14,7 @@
 
 
 body {
-    font-family: 'Catamaran', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 500;
     font-size: 100%;
     text-align: center;
@@ -25,7 +25,7 @@ body {
     background-color: var(--body-color);
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 0.5fr 4rem 4fr;
+    grid-template-rows: 0.5fr 4fr;
 }
 
 button {
@@ -34,6 +34,15 @@ button {
     outline: none;
     border: none;
     cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 8px var(--box-shadow);
+    transition: 0.3s;
+}
+
+button:active {
+    color: var(--accent);
+    box-shadow: none;
 }
 
 button, fieldset, input {
@@ -44,14 +53,97 @@ button, fieldset, input {
     border: none;
 }
 
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:active, a:visited {
+    color: var(--accent);
+}
+
 /* HEADER */
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.header>h1 {
+    padding: 20px 30px;
+    color: var(--dark-accent);
+    background-color: var(--card-color);
+    border-radius: 5px;
+    box-shadow: 0px 5px 8px var(--box-shadow);
+}
+
 /* BODY */
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.message {
+    height: 3em;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-container {
+    padding: 20px;
+    color: var(--dark-text);
+    background-color: var(--card-color);
+    border-radius: 5px;
+    box-shadow: 0px 5px 8px var(--box-shadow);
+}
+
+.game-field {
+    display: grid;
+    grid-template-columns: repeat(3, 125px);
+    grid-template-rows: repeat(3, 125px);
+}
+
+.box {
+    width: 125px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    cursor: pointer;
+}
+
+div[data-index='0'],
+div[data-index='1'],
+div[data-index='3'],
+div[data-index='4'],
+div[data-index='6'],
+div[data-index='7'] {
+    border-right: 2px solid var(--dark-accent);
+}
+
+div[data-index='3'],
+div[data-index='4'],
+div[data-index='5'],
+div[data-index='6'],
+div[data-index='7'],
+div[data-index='8'] {
+    border-top: 2px solid var(--dark-accent);
+}
+
 
 /* FOOTER */
 
 footer {
     background-color: var(--body-color);
     color: var(--dark-accent);
-    padding: 10px 0;
+    padding: 20px 0;
 }
