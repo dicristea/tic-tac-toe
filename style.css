@@ -105,7 +105,7 @@ a:active, a:visited {
     box-shadow: 0px 5px 8px var(--box-shadow);
 }
 
-.game-field {
+#game-field {
     display: grid;
     grid-template-columns: repeat(3, 125px);
     grid-template-rows: repeat(3, 125px);
@@ -121,21 +121,16 @@ a:active, a:visited {
     cursor: pointer;
 }
 
-div[data-index='0'],
-div[data-index='1'],
-div[data-index='3'],
-div[data-index='4'],
-div[data-index='6'],
-div[data-index='7'] {
+div.box:nth-child(1),
+div.box:nth-child(2),
+div.box:nth-child(4),
+div.box:nth-child(5),
+div.box:nth-child(7),
+div.box:nth-child(8) {
     border-right: 2px solid var(--dark-accent);
 }
 
-div[data-index='3'],
-div[data-index='4'],
-div[data-index='5'],
-div[data-index='6'],
-div[data-index='7'],
-div[data-index='8'] {
+div.box:nth-child(n+4) {
     border-top: 2px solid var(--dark-accent);
 }
 
