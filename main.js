@@ -63,6 +63,7 @@ const displayController = (() => {
 
     _boxElements.forEach(box => {
         box.addEventListener("click", (e) => {
+            if (gamePlay.getgameOver()) return;
             gameBoard.place(e.target.attributes.value.value);
             gamePlay.isOver();
         })
@@ -117,8 +118,17 @@ const gamePlay = (() => {
 
     const reset = () => {
         displayController.setMessage("Player X's turn!");
+        setgameOver();
         return playNum = 0;
     };
+
+    const getgameOver = () => {
+        return gameOver
+    }
+
+    const setgameOver = () => {
+        gameOver = false;
+    }
 
     const isOver = () => {
 
@@ -132,7 +142,7 @@ const gamePlay = (() => {
                     if (gameBoard.board[_winConditions[i][1]] === gameBoard.board[_winConditions[i][0]] && 
                         gameBoard.board[_winConditions[i][2]] === gameBoard.board[_winConditions[i][0]]) {
                             displayController.displayWinner();
-                            // displayController.blockPlacement();
+                            gameOver = true;                            
 
                     } else if (gameBoard.board.every(box => box !== '')) {
                         displayController.setMessage('Tie! To play again, press restart.');
@@ -141,14 +151,8 @@ const gamePlay = (() => {
                 }
             }
         }
-
     };
 
-
-    if (gameOver === true) {
-        displayController.setMessage('The game is over. To play again, press restart.')
-    };
-
-    return { reset, playerTurn, isOver }
+    return { reset, playerTurn, getgameOver, setgameOver, isOver }
 
 })();
