@@ -57,6 +57,7 @@ const gameBoard = (() => {
 // displayController is a Module 
 const displayController = (() => {
     const _boxElements = Array.from(document.querySelectorAll('.box'));
+    const _gameField = document.getElementById('game-field');
     const _restartButton = document.getElementById('restart');
     const _messageElement = document.getElementById('message');
 
@@ -67,16 +68,28 @@ const displayController = (() => {
         })
     });
 
+
     _restartButton.addEventListener("click", (e) => {
         gameBoard.clear();
         gamePlay.reset();
     });
 
+    const displayWinner = () => {
+        const xPlaces = gameBoard.board.filter(box => box === 'X');
+        const oPlaces = gameBoard.board.filter(box => box === 'O');
+        
+        if (xPlaces.length > oPlaces.length) {
+            displayController.setMessage('Player X wins! To play again, press restart.')
+        } else {
+            displayController.setMessage('Player O wins! To play again, press restart.')
+        };
+    };
+
     const setMessage = (message) => {
         _messageElement.textContent = message;
     };
 
-    return { setMessage }
+    return { displayWinner, setMessage }
 
 })();
 
@@ -97,8 +110,6 @@ const gamePlay = (() => {
         [2, 4, 6],
     ]; 
 
-    // const _winConditions = [[0, 1, 2], [3, 4, 5]]
-
     const playerTurn = () => {
         playNum++;
         return playNum % 2 === 1 ? playerX : playerO;
@@ -111,34 +122,17 @@ const gamePlay = (() => {
 
     const isOver = () => {
 
-        // for (let i = 0; i < _winConditions.length; i++) {
-        //     // console.log(gameBoard.board[_winConditions[i]])
-
-        //     if (gameBoard.board[_winConditions[i]] !== '') {
-        //         // console.log('boxes marked')
-
-        //         if (gameBoard.board[_winConditions[1]] === gameBoard.board[_winConditions[0]] && 
-        //             gameBoard.board[_winConditions[2]] === gameBoard.board[_winConditions[0]]) {
-        //                 displayController.setMessage('Game Over! To play again, press restart.')
-
-        //         } else if (gameBoard.board.every(box => box !== '')) {
-        //             displayController.setMessage('Tie! To play again, press restart.');
-             
-        //         }
-        //     }
-        // }
-
+        // should use array.some here to make more readable
 
         for (let i = 0; i < _winConditions.length; i++) {    
             for (let j = 0; j < _winConditions[i].length; j++) {
-                // console.log(gameBoard.board[_winConditions[i]])
 
                 if (gameBoard.board[_winConditions[i][j]] !== '') {
-                    // console.log('boxes marked')
 
                     if (gameBoard.board[_winConditions[i][1]] === gameBoard.board[_winConditions[i][0]] && 
                         gameBoard.board[_winConditions[i][2]] === gameBoard.board[_winConditions[i][0]]) {
-                            displayController.setMessage('Game Over! To play again, press restart.')
+                            displayController.displayWinner();
+                            // displayController.blockPlacement();
 
                     } else if (gameBoard.board.every(box => box !== '')) {
                         displayController.setMessage('Tie! To play again, press restart.');
@@ -150,14 +144,6 @@ const gamePlay = (() => {
 
     };
 
-    // && gameBoard.board[_winConditions[i][2]] === gameBoard.board[_winConditions[i][0]]
-
-    // if (gameBoard.board[_winConditions[j][1]] === gameBoard.board[_winConditions[j][0]] && 
-    //     gameBoard.board[_winConditions[j][2]] === gameBoard.board[_winConditions[j][0]]) {
-    //         return console.log('winner found');
-    // } else {
-    //     return console.log('winner not found');
-    // }
 
     if (gameOver === true) {
         displayController.setMessage('The game is over. To play again, press restart.')
