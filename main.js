@@ -1,6 +1,9 @@
 // underscore is for items not to be used outside of its scope
 // second parameter of i (index) comes with forEach method, just gotta pass it through
+// board.map() is similar to the original board.forEach() in that it creates all the divs, but this also stores the div elements into the new _boxElements array with 'return' boxElement as the items
+// Player is a factory..... don't need?
 
+// TO DO IN FUTURE: CREATE AN AI - so player can play against the computer
 
 // gameBoard is a Module 
 const gameBoard = (() => {
@@ -8,7 +11,6 @@ const gameBoard = (() => {
     const board = ['', '', '', '', '', '', '', '', ''];
     const gameField = document.getElementById('game-field');
 
-    // board.map() is similar to the original board.forEach() in that it creates all the divs, but this also stores the div elements into the new _boxElements array with 'return' boxElement as the items
     const _boxElements = board.map((box, i) => {
         const boxElement = document.createElement('div');
         boxElement.classList.add('box');
@@ -26,9 +28,9 @@ const gameBoard = (() => {
             const playSign = gamePlay.playerTurn();
             
             if (playSign === 'X') {
-                displayController.setMessage("Player O's turn!")
+                displayController.setMessage("Player O's turn!");
             } else if (playSign === 'O') {
-                displayController.setMessage("Player X's turn!")
+                displayController.setMessage("Player X's turn!");
             };
 
             board[boxNum] = playSign;
@@ -48,10 +50,8 @@ const gameBoard = (() => {
 })();
 
 
-// Player is a factory..... don't need?
+
 // const Player = () => {
-//     const playSign = gamePlay.playerTurn();
-//     return { playSign };
 // };
 
 // displayController is a Module 
@@ -80,9 +80,9 @@ const displayController = (() => {
         const oPlaces = gameBoard.board.filter(box => box === 'O');
         
         if (xPlaces.length > oPlaces.length) {
-            displayController.setMessage('Player X wins! To play again, press restart.')
+            displayController.setMessage('Player X wins! To play again, press restart.');
         } else {
-            displayController.setMessage('Player O wins! To play again, press restart.')
+            displayController.setMessage('Player O wins! To play again, press restart.');
         };
     };
 
@@ -90,7 +90,7 @@ const displayController = (() => {
         _messageElement.textContent = message;
     };
 
-    return { displayWinner, setMessage }
+    return { displayWinner, setMessage };
 
 })();
 
@@ -99,6 +99,7 @@ const gamePlay = (() => {
     const playerO = "O";
     let playNum = 0;
     let gameOver = false;
+    // let lastPlayer = 'X'
 
     const _winConditions = [
         [0, 1, 2],
@@ -114,45 +115,47 @@ const gamePlay = (() => {
     const playerTurn = () => {
         playNum++;
         return playNum % 2 === 1 ? playerX : playerO;
+        // lastPlayer = lastPlayer === 'X' ? 'O' : 'X'
     };
 
     const reset = () => {
         displayController.setMessage("Player X's turn!");
         setgameOver();
-        return playNum = 0;
+        playNum = 0;
     };
 
     const getgameOver = () => {
         return gameOver
-    }
+    };
 
     const setgameOver = () => {
         gameOver = false;
-    }
+    };
 
     const isOver = () => {
 
+
+        if (gameBoard.board.every(box => box !== '')) {
+            displayController.setMessage('Tie! To play again, press restart.');
+            return;
+        };
+
         // should use array.some here to make more readable
 
+        
+
         for (let i = 0; i < _winConditions.length; i++) {    
-            for (let j = 0; j < _winConditions[i].length; j++) {
+            if (gameBoard.board[_winConditions[i][0]] !== '') {
 
-                if (gameBoard.board[_winConditions[i][j]] !== '') {
-
-                    if (gameBoard.board[_winConditions[i][1]] === gameBoard.board[_winConditions[i][0]] && 
-                        gameBoard.board[_winConditions[i][2]] === gameBoard.board[_winConditions[i][0]]) {
-                            displayController.displayWinner();
-                            gameOver = true;                            
-
-                    } else if (gameBoard.board.every(box => box !== '')) {
-                        displayController.setMessage('Tie! To play again, press restart.');
-                
-                    }
-                }
-            }
-        }
+                if (gameBoard.board[_winConditions[i][1]] === gameBoard.board[_winConditions[i][0]] && 
+                    gameBoard.board[_winConditions[i][2]] === gameBoard.board[_winConditions[i][0]]) {
+                        displayController.displayWinner();
+                        gameOver = true;
+                };
+            };
+        };
     };
 
-    return { reset, playerTurn, getgameOver, setgameOver, isOver }
+    return { reset, playerTurn, getgameOver, setgameOver, isOver };
 
 })();
